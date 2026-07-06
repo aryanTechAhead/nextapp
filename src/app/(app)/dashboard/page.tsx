@@ -37,7 +37,7 @@ const Dashboard = () => {
     setIsswitchLoading(true)
     try {
       const response= await axios.get<ApiResponse>('/api/accept-messages')
-    setValue('acceptMessage', response.data.isAcceptingMessage)
+    setValue('acceptMessage', response.data.isAcceptingMessage ?? false)
     } catch (error) {
       const AxiosEror= error as AxiosError<ApiResponse>
       toast('Error',{
