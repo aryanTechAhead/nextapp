@@ -1,3 +1,2 @@
-import { Resend } from 'resend';
-
-export const resend = new Resend(process.env.RESEND_API_KEY);
+// Resend has been replaced by Nodemailer.
+// See src/lib/email.ts and src/helpers/sendVerificationEmail.ts
