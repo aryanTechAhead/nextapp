@@ -26,7 +26,7 @@ export async function sendEmail(
 ): Promise<void> {
   try {
     const info = await transporter.sendMail({
-      from: `"NextApp" <${process.env.EMAIL_USER}>`,
+      from: `"True Feedback" <${process.env.EMAIL_USER}>`,
       to,
       subject,
       html,
