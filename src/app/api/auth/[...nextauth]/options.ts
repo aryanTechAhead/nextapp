@@ -25,7 +25,7 @@ export const authOptions: NextAuthOptions = {
           if (!user) {
             throw new Error("No user Found with this email");
           }
-          if (user.isVerified) {
+          if (!user.isVerified) {
             throw new Error("Please Verify your account first");
           }
           const isPassCorrect = await bcrypt.compare(

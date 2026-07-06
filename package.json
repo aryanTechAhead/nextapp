@@ -10,7 +10,9 @@
   },
   "dependencies": {
     "@ai-sdk/openai": "^4.0.4",
+    "@ai-sdk/react": "^4.0.12",
     "@hookform/resolvers": "^5.4.0",
+    "@nanostores/react": "github:ai/react",
     "@react-email/components": "^1.0.12",
     "ai": "^7.0.9",
     "ai-sdk-ollama": "^4.0.0",
@@ -19,6 +21,8 @@
     "bcryptjs": "^3.0.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "embla-carousel-autoplay": "^8.6.0",
+    "embla-carousel-react": "^8.6.0",
     "lucide-react": "^1.22.0",
     "mongoose": "^9.7.0",
     "next": "16.2.9",
