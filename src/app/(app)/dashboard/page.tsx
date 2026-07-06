@@ -15,6 +15,7 @@ import { useSession } from "next-auth/react";
 import { use, useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import * as z from "zod";
 const Dashboard = () => {
   const [messages, setmessages] = useState<Message[]>([]);
   const [loading, setloading] = useState(false);
@@ -29,7 +30,7 @@ const Dashboard = () => {
     setmessages(messages.filter((message) => message._id.toString() !== messageId));
   };
    const {data:Session}=useSession()
-  const form= useForm({resolver:zodResolver(acceptMessageSchema)})
+  const form = useForm<z.infer<typeof acceptMessageSchema>>({resolver:zodResolver(acceptMessageSchema)})
   const{register, watch,setValue}=form
   const acceptMessage=watch('acceptMessage')
 

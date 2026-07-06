@@ -109,7 +109,7 @@ try {
   }
 
   return Response.json(
-    { success: true, messages: user[0].message || [] },
+    { message: "Messages fetched successfully", success: true, messages: user[0].message || [] },
     { status: 200 }
   );
 
