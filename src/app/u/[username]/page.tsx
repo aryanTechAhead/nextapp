@@ -8,7 +8,8 @@ import { Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { CardHeader, CardContent, Card } from '@/components/ui/card';
-import { useCompletion } from '@ai-sdk/react'
+// import { useCompletion } from '@ai-sdk/react'
+import suggestedMessagesData from '@/data/suggested-messages.json'
 
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from 'sonner';
@@ -21,9 +22,10 @@ import { Field, FieldError, FieldGroup, FieldLabel } from '@/components/ui/field
 
 const specialChar = '||';
 
-const parseStringMessages = (messageString: string): string[] => {
-  return messageString.split(specialChar);
-};
+// OLD: Parse function for API response string
+// const parseStringMessages = (messageString: string): string[] => {
+//   return messageString.split(specialChar);
+// };
 
 const initialMessageString =
   "What's your favorite movie?||Do you have any pets?||What's your dream job?";
@@ -32,15 +34,22 @@ export default function SendMessage() {
   const params = useParams<{ username: string }>();
   const username = params.username;
 
-  const {
-    complete,
-    completion,
-    isLoading: isSuggestLoading,
-    error,
-  } = useCompletion({
-    api: '/api/suggest-messages',
-    initialCompletion: initialMessageString,
-  });
+  // OLD: useCompletion hook (for AI-powered suggestions)
+  // const {
+  //   complete,
+  //   completion,
+  //   isLoading: isSuggestLoading,
+  //   error,
+  // } = useCompletion({
+  //   api: '/api/suggest-messages',
+  //   initialCompletion: initialMessageString,
+  // });
+  // NEW: Local state for suggested messages
+  const [suggestedMessages, setSuggestedMessages] = useState<string[]>(
+    initialMessageString.split(specialChar)
+  );
+  const [isSuggestLoading, setIsSuggestLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const form = useForm<z.infer<typeof MessageSchema>>({
     resolver: zodResolver(MessageSchema),
@@ -78,11 +87,24 @@ export default function SendMessage() {
   };
 
   const fetchSuggestedMessages = async () => {
+    // OLD: API-based suggestion fetching
+    // try {
+    //   complete('');
+    // } catch (error) {
+    //   console.error('Error fetching messages:', error);
+    //   // Handle error appropriately
+    // }
+    // NEW: Pick 3 random messages from JSON data
+    setIsSuggestLoading(true);
+    setError(null);
     try {
-      complete('');
-    } catch (error) {
-      console.error('Error fetching messages:', error);
-      // Handle error appropriately
+      const shuffled = [...suggestedMessagesData].sort(() => 0.5 - Math.random());
+      const selected = shuffled.slice(0, 3);
+      setSuggestedMessages(selected);
+    } catch (err) {
+      setError('Failed to load suggestions');
+    } finally {
+      setIsSuggestLoading(false);
     }
   };
 
@@ -237,9 +259,9 @@ export default function SendMessage() {
           </CardHeader>
           <CardContent className="flex flex-col space-y-4">
             {error ? (
-              <p className="text-red-500">{error.message}</p>
+              <p className="text-red-500">{error}</p>
             ) : (
-              parseStringMessages(completion).map((message, index) => (
+              suggestedMessages.map((message, index) => (
                 <Button
                   key={index}
                   variant="outline"
