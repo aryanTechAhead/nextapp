@@ -26,7 +26,7 @@ const Dashboard = () => {
     //     message._id !== messageId;
     //   }),
     // );
-    setmessages(messages.filter((message) => message._id !== messageId));
+    setmessages(messages.filter((message) => message._id.toString() !== messageId));
   };
    const {data:Session}=useSession()
   const form= useForm({resolver:zodResolver(acceptMessageSchema)})
