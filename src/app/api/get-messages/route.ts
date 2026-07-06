@@ -52,8 +52,7 @@ export async function GET(request: Request) {
  
 
 
-// ... inside your API handler block
- if (!mongoose.Types.ObjectId.isValid(user._id)) {
+  if (!user._id || !mongoose.Types.ObjectId.isValid(user._id)) {
     return Response.json(
       { message: "Invalid User ID format supplied", success: false },
       { status: 400 }

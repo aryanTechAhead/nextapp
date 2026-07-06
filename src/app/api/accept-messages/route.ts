@@ -17,9 +17,15 @@ export async function POST(request:Request){
             {status:401})
     }
     const userId=user._id
+    if (!userId) {
+      return Response.json(
+        { message: 'User ID not found', success: false },
+        { status: 400 }
+      )
+    }
     const {acceptMessages} = await request.json()
     try {
-        const updatedUser=await UserModel.findOneAndUpdate(userId,{isAcceptingMessage:acceptMessages},{new:true})
+        const updatedUser=await UserModel.findOneAndUpdate({ _id: userId },{isAcceptingMessage:acceptMessages},{new:true})
         if(!updatedUser){
             return Response.json(
             {message:'Failed to update user to accept the message',
@@ -59,6 +65,12 @@ export async function GET(request:Request){
             {status:401})
     }
     const userId= user._id
+    if (!userId) {
+      return Response.json(
+        { message: 'User ID not found', success: false },
+        { status: 400 }
+      )
+    }
     try {
         const findUser= await UserModel.findById(userId)
      if(!findUser){
