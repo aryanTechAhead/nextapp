@@ -184,6 +184,7 @@ export default function SignUpPage() {
 
   const form = useForm<z.infer<typeof signUpSchema>>({
     resolver: zodResolver(signUpSchema),
+    mode: 'onTouched',
     defaultValues: {
       username: "",
       email: "",

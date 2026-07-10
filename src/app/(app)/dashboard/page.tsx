@@ -12,7 +12,7 @@ import axios, { AxiosError } from "axios";
 import { Loader2, RefreshCcw } from "lucide-react";
 import { Session, User } from "next-auth";
 import { useSession } from "next-auth/react";
-import { use, useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
@@ -30,7 +30,7 @@ const Dashboard = () => {
     setmessages(messages.filter((message) => message._id.toString() !== messageId));
   };
    const {data:Session}=useSession()
-  const form = useForm<z.infer<typeof acceptMessageSchema>>({resolver:zodResolver(acceptMessageSchema)})
+  const form = useForm<z.infer<typeof acceptMessageSchema>>({resolver:zodResolver(acceptMessageSchema), defaultValues:{acceptMessage:false}, mode:'onTouched'})
   const{register, watch,setValue}=form
   const acceptMessage=watch('acceptMessage')
 

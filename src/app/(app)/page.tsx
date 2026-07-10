@@ -55,6 +55,8 @@ export default function Home() {
               </CarouselItem>
             ))}
           </CarouselContent>
+          <CarouselPrevious />
+          <CarouselNext />
         </Carousel>
       </main>
 

@@ -29,7 +29,7 @@ export async function sendEmail(
       from: `"True Feedback" <${process.env.EMAIL_USER}>`,
       to,
       subject,
-      html,
+      html, 
     });
     console.log('Message sent: %s', info.messageId);
   } catch (error) {

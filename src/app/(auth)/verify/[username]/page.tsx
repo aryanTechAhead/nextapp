@@ -26,6 +26,7 @@ export default function VerifyPage() { // FIXED: Changed variable signature to s
   
   const form = useForm<z.infer<typeof verifySchema>>({
     resolver: zodResolver(verifySchema),
+    mode: 'onTouched',
     defaultValues: {
       code: "",
     },

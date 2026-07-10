@@ -12,6 +12,7 @@
 
 # testing
 /coverage
+monocart-report/
 
 # next.js
 /.next/
